@@ -2,7 +2,7 @@
 @section('main')
 <section class="banner-top">
 		<div class="banner-photo">
-			<img src="{{url('/')}}/public/images/bn-pj.png" alt="">
+			<img width="100%" src="{{$pages->banner}}" alt="">
 		</div>
 	</section>
     <section class="product-cate pd-60">
@@ -15,20 +15,24 @@
                     <div class="cate-content">
                         @if($parent_name !='')
                         <h1 class="text-center title-40">{{$parent_name}}</h1>
-                        @endif                        
+                        @endif 
+                                            
                         @foreach($cate_id as $key =>$value)
 
                         <div class="cate-child">
                             <div class="child-title flex-center-between">
                                 <h2><a href="{{url('/')}}/san-pham/{{$cate_slug[$value]}}" title="">{{$key}}</a> </h2>
+                                @if($cate_check == '0')
                                 @if(isset($product[$value]) && count($product[$value]) > 3)
                                 <a href="{{url('/')}}/san-pham/{{$cate_slug[$value]}}" title="" class="view-mores inflex-center-center">Xem thêm</a>
+                                @endif
                                 @endif
                             </div>
                             <div class="child-content">
                                 <div class="row">
                                     @if(isset($product[$value]))
-                                    @foreach($product[$value] as $key => $item)   
+                                    @foreach($product[$value] as $key => $item)
+                                    @if($cate_check == '0')   
                                     @if($key < 3) 
                                     <div class="col-md-4">
                                         <div class="product-item">
@@ -39,6 +43,17 @@
                                             </div>
                                         </div>
                                     </div> 
+                                    @endif 
+                                    @else
+                                    <div class="col-md-4">
+                                        <div class="product-item">
+                                            <a href="{{url('/')}}/san-pham/{{$item->slug}}" title="" class="zoom"><img src="{{$item->image}}" alt=""> </a>
+                                            <div class="product-text text-center">
+                                                <h4><a href="product-detail.php" title="">{{$item->name}}</a> </h4>
+                                                <div class="price">{{$item->price}}</div>
+                                            </div>
+                                        </div>
+                                    </div>                                  
                                     @endif                                   
                                     @endforeach
                                     @endif

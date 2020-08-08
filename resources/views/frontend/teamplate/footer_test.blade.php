@@ -90,8 +90,13 @@
                 </a>
             </div>
         </div>
+        <?php if(!empty($site_info)){
+            $phone = explode( ',', $site_info->hotline );
+        } ?>
+        @if($phone['0'])
         <div class="hotline-bar">
-            <a href="tel:0983260584"> <span class="text-hotline" id="call-now-1">0983.260.584</span> </a>
+            <a href="tel:0983260584"> <span class="text-hotline" id="call-now-1">{{$phone['0']}}</span> </a>
         </div>
+        @endif
     </div>
 </div>

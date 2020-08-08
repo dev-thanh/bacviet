@@ -1,8 +1,8 @@
 @extends('frontend.master')
 @section('main')
 	<section class="banner-top">
-		<div class="banner-photo">
-			<img src="http://localhost/bacviet/public/frontend/images/bread.png" alt="">
+		<div class="banner-photo text-center">
+			<img src="{{$pages->banner}}" alt="">
 		</div>
 	</section>
 	<section class="product-detail">

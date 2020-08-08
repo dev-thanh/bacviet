@@ -110,12 +110,21 @@
     </section>
     <section class="header-hotline">
         <div class="container">
+            <?php if(!empty($site_info)){
+                $phone = explode( ',', $site_info->hotline );
+            } ?>
+            @if (!empty($site_info))
             <div class="hotline flex-center-end">
                 <span>Hotline: </span>
-                <a href="" title="">0704.646.517</a>
+                @foreach ($phone as $k => $item)
+                <a href="" title="">{{$item}}</a>
+                @if($k+1 != count($phone))
                 <i>-</i>
-                <a href="" title="">0983.260.584</a>
+                @endif
+                @endforeach
+                <!-- <a href="" title="">0983.260.584</a> -->
             </div>
+            @endif
         </div>
     </section>
     <nav id="menu">

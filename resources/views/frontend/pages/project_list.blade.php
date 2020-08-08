@@ -2,8 +2,8 @@
 @extends('frontend.master')
 @section('main')
 <section class="banner-top">
-		<div class="banner-photo">
-			<img src="{{url('/')}}/public/images/bn-pj.png" alt="">
+		<div class="banner-photo text-center">
+			<img src="{{$dataSeo->banner}}" alt="">
 		</div>
 	</section>
     <section class="breadcrumbs">

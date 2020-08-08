@@ -13,17 +13,20 @@
             @endif
         </section>
         <section class="about-index pd-60 block-gray">
+            <?php if(!empty($about_us->content)){
+                $content = json_decode($about_us->content);
+            } ?>
             <div class="container">
                 <h2 class="title">Về chúng tôi</h2>
                 <div class="row">
                     <div class="col-md-6">
-                        <a href="about-us.php" title="" class="zoom"><img src="public/images/about-1.png" alt=""> </a>
+                        <a href="about-us.php" title="" class="zoom"><img src="{{$content->about->image}}" alt=""> </a>
                     </div>
                     <div class="col-md-6">
                         <div class="about-text">
-                            <h3>Chào mừng bạn đã đến với Cho thuê máy công trình!</h3>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset ...</p>
-                            <a href="about-us.php" title="" class="link-plus">Xem thêm</a>
+                            <h3>{{$content->about->title}}</h3>
+                            <p>{!! $content->about->desc !!}</p>
+                            <a href="{{url('/')}}/gioi-thieu" title="" class="link-plus">Xem thêm</a>
                         </div>
                     </div>
                 </div>
@@ -47,43 +50,26 @@
                         @endforeach
                     @endif
                 </div>
-                <div class="text-center mgt-50"><a href="{{route('home.project')}}" title="" class="view-mores inflex-center-center">Xem tất cả</a> </div>
+                <div class="text-center mgt-50"><a href="{{route('home.product')}}" title="" class="view-mores inflex-center-center">Xem tất cả</a> </div>
             </div>
         </section>
         <section class="service-index">
             <div class="container">
                 <h2 class="title title-white">Dịch vụ</h2>
                 <div class="service-slider">
+                    <?php if(!empty($dataSeo->content)){
+                        $content = json_decode($dataSeo->content);
+                    } ?>
+                    @if (!empty($content->services))
+                    @foreach ($content->services as $key => $value)
                     <div class="col-md-12">
                         <div class="ser-item">
-                            <a href="service-detail.php" title="" class="ser-image zoom"><img src="public/images/dv-1.png" alt=""> </a>
-                            <h4><a href="service-detail.php" title="">cho thuê Máy công trình</a></h4>
+                            <a href="" title="{{ @$value->title }}" class="ser-image zoom"><img src="{{ @$value->background }}" alt=""> </a>
+                            <h4><a href="" title="">{{ @$value->title }}</a></h4>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="ser-item">
-                            <a href="service-detail.php" title="" class="ser-image zoom"><img src="public/images/dv-2.png" alt=""> </a>
-                            <h4><a href="service-detail.php" title="">cho thuê Máy công trình</a></h4>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="ser-item">
-                            <a href="service-detail.php" title="" class="ser-image zoom"><img src="public/images/dv-3.png" alt=""> </a>
-                            <h4><a href="service-detail.php" title="">cho thuê Máy công trình</a></h4>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="ser-item">
-                            <a href="service-detail.php" title="" class="ser-image zoom"><img src="public/images/dv-4.png" alt=""> </a>
-                            <h4><a href="service-detail.php" title="">cho thuê Máy công trình</a></h4>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="ser-item">
-                            <a href="service-detail.php" title="" class="ser-image zoom"><img src="public/images/dv-2.png" alt=""> </a>
-                            <h4><a href="service-detail.php" title="">cho thuê Máy công trình</a></h4>
-                        </div>
-                    </div>
+                    @endforeach
+                    @endif
                 </div>
             </div>
         </section>
@@ -144,24 +130,6 @@
                             </div>
                         @endforeach
                     @endif
-                    <!-- <div class="col-md-6">
-                        <div class="pjs-item">
-                            <a href="project-detail.php" title="" class="zoom"><img src="public/images/pj-2.png" alt=""> </a>
-                            <div class="pj-name">Dự án khu biệt thự liền kề vinhome</div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="pjs-item">
-                            <a href="project-detail.php" title="" class="zoom"><img src="public/images/pj3.png" alt=""> </a>
-                            <div class="pj-name">Dự án khu biệt thự liền kề vinhome</div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="pjs-item">
-                            <a href="project-detail.php" title="" class="zoom"><img src="public/images/pj-4.png" alt=""> </a>
-                            <div class="pj-name">Dự án khu biệt thự liền kề vinhome</div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </section>
@@ -201,12 +169,7 @@
                             </div>
                         @endforeach
                     @endif
-                    <!-- <div class="part-item"><a href="" title="" class="zoom-2"><img src="public/images/client1.png" alt="" title=""> </a></div>
-                    <div class="part-item"><a href="" title="" class="zoom-2"><img src="public/images/client2.png" alt="" title=""> </a></div>
-                    <div class="part-item"><a href="" title="" class="zoom-2"><img src="public/images/client8.png" alt="" title=""> </a></div>
-                    <div class="part-item"><a href="" title="" class="zoom-2"><img src="public/images/client7.png" alt="" title=""> </a></div>
-                    <div class="part-item"><a href="" title="" class="zoom-2"><img src="public/images/client5.png" alt="" title=""> </a></div>
-                    <div class="part-item"><a href="" title="" class="zoom-2"><img src="public/images/client2.png" alt="" title=""> </a></div> -->
+                    
                 </div>
             </div>
         </section>

@@ -118,6 +118,7 @@ class IndexController extends Controller
     { 
     	$this->createSeo();
         $contentHome = Pages::where('type', 'home')->first();
+        $dataSeo = Pages::where('type', 'services')->first();
         $partner = Image::where('type', 'partner')->where('status', 1)->orderBy('created_at', 'DESC')->get();
         $slider = Image::where('type', 'slider')->where('status', 1)->orderBy('created_at', 'DESC')->get();
         $postHots = Posts::where('status', 1)->where('type', 'blog')->where('hot', 1)->orderBy('created_at', 'DESC')->take(4)->get();
@@ -125,7 +126,9 @@ class IndexController extends Controller
 
         $projects_all = Projects::inRandomOrder()->where('status', 1)->orderBy('created_at', 'DESC')->take(4)->get();
         $product_hot = Products::where(['status'=>1,'hot'=>1])->orderBy('created_at', 'DESC')->get();
-    	return view('frontend.pages.index', compact('partner', 'slider', 'postHots', 'contentHome', 'categories', 'projects_all','product_hot'));
+        $about_us = Pages::where('type', 'about')->first();
+        //dd($about_us);
+    	return view('frontend.pages.index', compact('partner', 'slider', 'postHots', 'contentHome', 'categories', 'projects_all','product_hot','dataSeo','about_us'));
     }
 
     public function getListPost()
@@ -157,12 +160,13 @@ class IndexController extends Controller
     }
 
     public function getListProducts(){
+        $pages = Pages::where('type','product')->first();
         $dataSeo = Pages::where('type', 'project')->first();
         $this->createSeo($dataSeo);
         $data = Products::where('status', 1)->orderBy('created_at', 'DESC')->paginate(6);
         $menu_pro = Categories::where(['type'=>'product_category','parent_id'=>0])->get();
         //dd($menu_pro);
-        return view('frontend.pages.product_list', compact('dataSeo', 'data','menu_pro'));
+        return view('frontend.pages.product_list', compact('dataSeo', 'data','menu_pro','pages'));
     }
 
     public function loadMoreProject()
@@ -200,6 +204,7 @@ class IndexController extends Controller
 
     public function getSingleProject($slug)
     {
+        $dataSeo = Pages::where('type', 'project')->first();
         $data = Projects::where('status', 1)->where('slug', $slug)->firstOrFail();
         $this->createSeoPost($data);
         $list_category = $data->category->pluck('id')->toArray();
@@ -210,12 +215,13 @@ class IndexController extends Controller
                 ->take(8)->get();
                 //dd($list_post_related);
         //dd($this->menu->cate_product(6));
-        return view('frontend.pages.project_detail', compact('data', 'project_same_category'));
+        return view('frontend.pages.project_detail', compact('data', 'project_same_category','dataSeo'));
     }
 
     public function getSingleProduct($slug)
     {
         $cate = Categories::where('slug',$slug)->first();
+        $pages = Pages::where('type','product')->first();
         $menu_pro = Categories::where(['type'=>'product_category','parent_id'=>0])->get();
         if($cate){
             $cas = Categories::where(['type'=>'product_category','parent_id'=>$cate->id]);
@@ -227,11 +233,13 @@ class IndexController extends Controller
                 $array = array($cate->id);
                 $name_array = array($cate->name);
                 $parent_name = '';
+                $cate_check='1';
             }else{
                 $cate_slug = $cas->pluck('slug','id')->toArray();
                 $array = array_values($cate_id);
                 $name_array = array_keys($cate_id);
                 $parent_name = $cate->name;
+                $cate_check='0';
             }
             
             $product = DB::table('products')
@@ -241,7 +249,7 @@ class IndexController extends Controller
             ->join('categories','category_product.id_category','=','categories.id')
             ->get()->groupBy('id_category');
             
-            return view('frontend.pages.product_cate_list', compact('product','menu_pro','cate_id','parent_name','cate_slug'));
+            return view('frontend.pages.product_cate_list', compact('product','menu_pro','cate_id','parent_name','cate_slug','pages','cate_check'));
         }
         else
         $data = Products::where('status', 1)->where('slug', $slug)->firstOrFail();       
@@ -268,7 +276,7 @@ class IndexController extends Controller
                 ->orderBy('created_at', 'DESC')
                 ->take(8)->get();
 
-        return view('frontend.pages.product_detail', compact('data', 'product_same_category','menu_pro','products_viewed'));
+        return view('frontend.pages.product_detail', compact('data', 'product_same_category','menu_pro','products_viewed','pages'));
     }
 
     public function getCatetoryProjects($slug)
@@ -384,7 +392,9 @@ class IndexController extends Controller
         $dataSeo = Pages::where('type', 'about')->first();
         $this->createSeo($dataSeo);
         $projects = Projects::where('status', 1)->where('hot', 1)->orderBy('created_at', 'DESC')->take(4)->get();
-        return view('frontend.pages.about', compact('dataSeo', 'projects'));
+        // dd($dataSeo);
+        $about_us = Pages::where('type', 'about')->first();
+        return view('frontend.pages.about', compact('dataSeo', 'projects','about_us'));
     }
 
 
