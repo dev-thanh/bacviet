@@ -11,7 +11,6 @@
 |
 */
 Route::get('trang-chu', 'IndexController@getHome')->name('home.index');
-Route::get('/test', 'IndexController@test')->name('test');
 
 Route::get('/tin-tuc', 'IndexController@getListPost')->name('home.posts');
 
@@ -33,6 +32,8 @@ Route::post('/lien-he', 'IndexController@postContact')->name('home.contact.post'
 
 Route::get('/dich-vu', 'IndexController@getServices')->name('home.services');
 
+Route::get('/dich-vu/{slug}', 'IndexController@getServicesDetail')->name('home.services');
+
 Route::get('/gioi-thieu', 'IndexController@getAbout')->name('home.about');
 
 Route::get('/load-more-ajax', 'IndexController@getLoadMoreAjax')->name('home.load-more-ajax');
@@ -43,6 +44,11 @@ Route::get('/load-more-product', 'IndexController@loadMoreProduct')->name('load-
 
 Route::get('/load-more-post', 'IndexController@loadMorePost')->name('load-more-post');
 
+Route::get('/test', 'IndexController@testfunction')->name('load-more-post');
+
+Route::group(['middleware' => 'locale'], function() {
+    Route::get('change-language/{language}', 'IndexController@changeLanguage')->name('user.change-language');
+});
 
 Route::group(['namespace' => 'Admin'], function () {
 

@@ -1,3 +1,4 @@
+<?php $language=request()->session()->get('lang');?>
 @extends('frontend.master')
 @section('main')
 	<section class="banner-top">
@@ -13,9 +14,9 @@
                     <a href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{url('/')}}/du-an">Dự án</a>
+                    <a href="{{url('/')}}/du-an">{{ __('project') }}</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Chi tiết dự án</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ __('projectdetail') }}</li>
               </ol>
             </nav>
         </div>
@@ -25,18 +26,28 @@
             <h1 class="d-none">hidden</h1>
             <div class="row">
                 <div class="col-md-9 padd-large">
+                    @if($language=='vi')
                     <h2 class="pjdetail-title">{{$data->name}}</h2>
+                    @else
+                    <h2 class="pjdetail-title">{{$data->name_en}}</h2>
+                    @endif
                     <div class="investor-info">
-                        <p><strong>- Chủ đầu tư: {{$data->investor}}</strong></p>
-                        <p><strong>- Địa chỉ: {{$data->address}}</strong></p>
-                        <p><strong>- Diện tích: {{$data->acreage}}</strong></p>
-                        <p><strong>- Thời gian thi công: {{$data->time_project}}</strong></p>
+                        <p><strong>- {{ __('investor') }}: {{$data->investor}}</strong></p>
+                        <p><strong>- {{ __('address') }}: {{$data->address}}</strong></p>
+                        <p><strong>- {{ __('acreage') }}: {{$data->acreage}}</strong></p>
+                        <p><strong>- {{ __('constructiontime') }}: {{$data->time_project}}</strong></p>
                     </div>
                     <div class="pj-info">
                         <img src="{{ $data->image }}" alt="">
+                        @if($language=='vi')
                         <p>{!! $data->meta !!}</p>
                         <img src="images/pj-detail2.png" alt="">
                         <p>{!! $data->content !!}</p>
+                        @else
+                        <p>{!! $data->meta_en !!}</p>
+                        <img src="images/pj-detail2.png" alt="">
+                        <p>{!! $data->content_en !!}</p>
+                        @endif
                         <?php if(!empty($data->more_image)){
                             $more_image = json_decode($data->more_image);
                         } ?>
@@ -63,7 +74,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        @if($language=='vi')
                                         <h6 class="blogtrend-name"><a href="{{route('home.single-project',['slug'=>$item->slug])}}">{{$item->name}}</a></h6>
+                                        @else
+                                        <h6 class="blogtrend-name"><a href="{{route('home.single-project',['slug'=>$item->slug])}}">{{$item->name_en}}</a></h6>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

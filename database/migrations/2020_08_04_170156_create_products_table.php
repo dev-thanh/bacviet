@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('slug');
             $table->string('image');
             $table->string('more_image')->nullable();
-            $table->string('price')->nullable();
+            $table->bigInteger('price')->nullable();
             $table->string('size')->nullable();
             $table->string('status')->nullable();
             $table->string('pr_code')->nullable();

@@ -17,8 +17,8 @@ class Posts extends Migration
             $table->bigIncrements('id');
             $table->text('name')->nullable();
             $table->text('slug')->nullable();
-            $table->text('desc')->nullable();
-            $table->text('content')->nullable();
+            $table->longText('desc')->nullable();
+            $table->longText('content')->nullable();
             $table->text('image')->nullable();
             $table->text('type')->nullable();
             $table->integer('hot')->nullable();

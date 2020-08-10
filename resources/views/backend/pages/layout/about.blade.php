@@ -75,8 +75,16 @@
 										<input type="text" name="content[about][title]" value="{{ @$content->about->title }}" class="form-control">
 									</div>
 									<div class="form-group">
+										<label for="">Tiêu đề(tiếng anh)</label>
+										<input type="text" name="content[about][title_en]" value="{{ @$content->about->title_en }}" class="form-control">
+									</div>
+									<div class="form-group">
 										<label for="">Nội dung</label>
 										<textarea class="content" name="content[about][desc]">{!! @$content->about->desc !!}</textarea>
+									</div>
+									<div class="form-group">
+										<label for="">Nội dung(tiếng anh)</label>
+										<textarea class="content" name="content[about][desc_en]">{!! @$content->about->desc_en !!}</textarea>
 									</div>
 								</div>
 							</div>
@@ -130,8 +138,16 @@
 										<input type="text" name="content[vision][title]" value="{{ @$content->vision->title }}" class="form-control">
 									</div>
 									<div class="form-group">
+										<label for="">Tiêu đề(tiếng anh)</label>
+										<input type="text" name="content[vision][title_en]" value="{{ @$content->vision->title_en }}" class="form-control">
+									</div>
+									<div class="form-group">
 										<label for="">Nội dung</label>
 										<textarea class="content" name="content[vision][content]">{!! @$content->vision->content !!}</textarea>
+									</div>
+									<div class="form-group">
+										<label for="">Nội dung(tiếng anh)</label>
+										<textarea class="content" name="content[vision][content_en]">{!! @$content->vision->content_en !!}</textarea>
 									</div>
 								</div>
 								<div class="col-sm-4">
@@ -141,8 +157,16 @@
 										<input type="text" name="content[mission][title]" value="{{ @$content->mission->title }}" class="form-control">
 									</div>
 									<div class="form-group">
+										<label for="">Tiêu đề(tiếng anh)</label>
+										<input type="text" name="content[mission][title_en]" value="{{ @$content->mission->title_en }}" class="form-control">
+									</div>
+									<div class="form-group">
 										<label for="">Nội dung</label>
 										<textarea class="content" name="content[mission][content]">{!! @$content->mission->content !!}</textarea>
+									</div>
+									<div class="form-group">
+										<label for="">Nội dung(tiếng anh)</label>
+										<textarea class="content" name="content[mission][content_en]">{!! @$content->mission->content_en !!}</textarea>
 									</div>
 								</div>
 								<div class="col-sm-4">
@@ -152,8 +176,16 @@
 										<input type="text" name="content[core_values][title]" value="{{ @$content->core_values->title }}" class="form-control">
 									</div>
 									<div class="form-group">
+										<label for="">Tiêu đề(tiếng anh)</label>
+										<input type="text" name="content[core_values][title_en]" value="{{ @$content->core_values->title_en }}" class="form-control">
+									</div>
+									<div class="form-group">
 										<label for="">Nội dung</label>
 										<textarea class="content" name="content[core_values][content]">{!! @$content->core_values->content !!}</textarea>
+									</div>
+									<div class="form-group">
+										<label for="">Nội dung(tiếng anh)</label>
+										<textarea class="content" name="content[core_values][content_en]">{!! @$content->core_values->content_en !!}</textarea>
 									</div>
 								</div>
 							</div>

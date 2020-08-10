@@ -35,6 +35,10 @@
 		                                    <input type="text" class="form-control" name="name" id="name" value="{!! old('name', @$data->name) !!}">
 		                                </div>
 		                                <div class="form-group">
+		                                    <label>Tên sản phẩm(tiếng anh)</label>
+		                                    <input type="text" class="form-control" name="name_en" id="name_en" value="{!! old('name_en', @$data->name_en) !!}">
+		                                </div>
+		                                <div class="form-group">
 		                                    <label>Mã sản phẩm</label>
 		                                    <input type="text" class="form-control" name="pr_code" id="pr_code" value="{!! old('pr_code', @$data->pr_code) !!}">
 		                                </div>
@@ -61,10 +65,18 @@
 		                                	<label for="">Thông tin sản phẩm</label>
 		                                	<textarea class="content" name="meta">{!! old('meta', @$data->meta) !!}</textarea>
 		                                </div>
+		                                <div class="form-group">
+		                                	<label for="">Thông tin sản phẩm(tiếng anh)</label>
+		                                	<textarea class="content" name="meta_en">{!! old('meta_en', @$data->meta_en) !!}</textarea>
+		                                </div>
 
 		                                <div class="form-group">
 		                                	<label for="">Mô tả sản phẩm</label>
 		                                	<textarea class="content" name="content">{!! old('content', @$data->content) !!}</textarea>
+		                                </div>
+		                                <div class="form-group">
+		                                	<label for="">Mô tả sản phẩm</label>
+		                                	<textarea class="content" name="content_en">{!! old('content_en', @$data->content_en) !!}</textarea>
 		                                </div>
 		                    		</div>
 		                    	</div>

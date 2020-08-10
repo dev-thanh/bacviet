@@ -35,6 +35,10 @@
 									<input type="text" class="form-control" name="name" id="name" value="">
 								</div>
 								<div class="form-group">
+									<label for="">Tên danh mục(tiếng anh)</label>
+									<input type="text" class="form-control" name="name_en" id="name_en" value="">
+								</div>
+								<div class="form-group">
 									<label for="">Đường dẫn tĩnh</label>
 									<input type="text" class="form-control" name="slug" {{ isUpdate(@$module['action']) ? 'id="slug"' : null }} value="">
 								</div>

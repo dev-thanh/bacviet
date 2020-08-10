@@ -19,7 +19,7 @@ class Projects extends Migration
             $table->text('slug')->nullable();
             $table->text('image')->nullable();
             $table->text('sort_desc')->nullable();
-            $table->text('content')->nullable();
+            $table->longText('content')->nullable();
             $table->longText('meta')->nullable();
             $table->integer('hot')->nullable();
             $table->integer('status')->nullable();

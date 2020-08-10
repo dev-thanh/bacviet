@@ -19,6 +19,7 @@ class CategoryProductsController extends Controller
     {
         return [
             'name' => "required",
+            'name_en' => "required",
             'slug' => "required",
         ];
     }
@@ -27,6 +28,7 @@ class CategoryProductsController extends Controller
     {
         return [
             'name.required' => 'Tiêu đề không được bỏ trống.', 
+            'name_en.required' => 'Tiêu đề tiếng anh không được bỏ trống.', 
             'slug.required' => 'Đường dẫn tĩnh không được bỏ trống.',
         ];
     }
@@ -55,7 +57,6 @@ class CategoryProductsController extends Controller
         //$data['data'] = Categories::where('type', 'project_category')->get();
         $category = Categories::where('type', 'product_category')->get();
         $data['data'] = $category;
-        //dd($data['module']['module']);
         return view("backend.{$this->module()['module']}.list_category",compact('data'));
     }
 

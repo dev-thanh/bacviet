@@ -35,6 +35,10 @@
 		                                    <input type="text" class="form-control" name="name" id="name" value="{!! old('name', @$data->name) !!}" required="">
 		                                </div>
 		                                <div class="form-group">
+		                                    <label>Tên dự án(tiếng anh)</label>
+		                                    <input type="text" class="form-control" name="name_en" id="name_en" value="{!! old('name', @$data->name_en) !!}" required="">
+		                                </div>
+		                                <div class="form-group">
 		                                    <label>Mã dự án</label>
 		                                    <input type="text" class="form-control" name="pr_code" id="pr_code" value="{!! old('pr_code', @$data->pr_code) !!}" required="">
 		                                </div>
@@ -69,10 +73,18 @@
 		                                	<label for="">Thông tin dự án</label>
 		                                	<textarea class="content" name="meta">{!! old('meta', @$data->meta) !!}</textarea>
 		                                </div>
+		                                <div class="form-group">
+		                                	<label for="">Thông tin dự án(tiếng anh)</label>
+		                                	<textarea class="content" name="meta_en">{!! old('meta_en', @$data->meta_en) !!}</textarea>
+		                                </div>
 
 		                                <div class="form-group">
 		                                	<label for="">Mô tả dự án</label>
 		                                	<textarea class="content" name="content">{!! old('content', @$data->content) !!}</textarea>
+		                                </div>
+		                                <div class="form-group">
+		                                	<label for="">Mô tả dự án(tiếng anh)</label>
+		                                	<textarea class="content" name="content_en">{!! old('content_en', @$data->content_en) !!}</textarea>
 		                                </div>
 		                    		</div>
 		                    	</div>

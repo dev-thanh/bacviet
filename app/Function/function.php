@@ -293,3 +293,92 @@ function getOptions($key = null, $field = null)
     }
 
 
+    function data_free($data, $parent_id=null,$level = 0){
+        $result = [];
+        foreach ($data as $item) {
+            if($item['parent_id'] == $parent_id){
+                $item['level']=$level;
+                $result[] = $item;
+                unset($data[$item['id']]);
+                $child = data_free($data,$item['id'],$level+1);
+                $result = array_merge($result, $child);
+            }
+        }
+        return $result;
+    }
+    function showCategories($categories, $parent_id = 0, $char = '',$language,$array_parent)
+    {
+        if($language=='vi'){
+            $name ='title';
+        }else{
+            $name ='title_en';
+        }
+        $cate_child = array();
+        foreach ($categories as $key => $item)
+        {
+            if ($item['parent_id'] == $parent_id)
+            {
+                $cate_child[] = $item;
+                unset($categories[$key]);
+            }
+        }
+        
+        if ($cate_child)
+        {   
+            if($parent_id == null){
+                echo '<ul class="flex-center-center">';
+            }else{
+                echo '<ul class="sub-menu">';
+            }
+            foreach ($cate_child as $key => $item)
+            {
+                $li_class = in_array($item['id'], $array_parent) ? 'item-has-children' : '';
+
+                echo '<li class="'.$li_class.'"><a href="'.url($item->url).'" title="">'.$item[$name].'</a>';
+                showCategories($categories, $item['id'], $char.'|---',$language,$array_parent);
+                echo '</li>';
+            }
+            echo '</ul>';
+        }
+    }
+    function showCategories_product($categories, $parent_id = 0, $char = '',$language,$li=0)
+    {
+        if($language=='vi'){
+            $name ='name';
+        }else{
+            $name ='name_en';
+        }
+        $cate_child = array();
+        foreach ($categories as $key => $item)
+        {
+            if ($item['parent_id'] == $parent_id)
+            {
+                $cate_child[] = $item;
+                unset($categories[$key]);
+            }
+        }
+        
+        if ($cate_child)
+        {   
+            if($parent_id!=0){
+                echo '<div class="cate-dropdown"><ul>';
+            }else{
+                echo '<div class="cate-item">';
+            }
+            foreach ($cate_child as $key => $item)
+            {   
+                if($parent_id==0){                
+                    echo '<div class="cate-cap"><a href="'.url('/').'/san-pham/'.$item['slug'].'" title="">'.$item[$name].'</a></div>';
+                }else{
+                    echo '<li><a href="'.url('/').'/san-pham/'.$item['slug'].'" title="'.$item[$name].'">- '.$item[$name].'</a> </li>';
+                }
+                showCategories_product($categories, $item['id'], $char.'|---',$language,$li=1);
+            }
+            if($parent_id!=0){
+                echo '</div></ul>';
+            }else{
+                echo '</div>';
+            }
+            
+        }
+    }

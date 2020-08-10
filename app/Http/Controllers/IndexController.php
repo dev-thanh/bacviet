@@ -114,6 +114,13 @@ class IndexController extends Controller
         }
     }
 
+    public function changeLanguage($language)
+    {
+        \Session::put('lang', $language);
+
+        return redirect()->back();
+    }
+
     public function getHome()
     { 
     	$this->createSeo();
@@ -159,12 +166,37 @@ class IndexController extends Controller
         return view('frontend.pages.project_list', compact('dataSeo', 'data'));
     }
 
+    public function get_data_product(){
+        $data_url = request()->order ? request()->order : '' ;
+        if($data_url ==''){
+            $data = Products::where('status', 1)->orderBy('created_at', 'DESC')->paginate(6);
+        }else{
+            switch ($data_url) {
+                case 'newest':
+                    $data = Products::where('status', 1)->orderBy('created_at', 'DESC')->paginate(6);
+                    break;
+                case 'oldest':
+                    $data = Products::where('status', 1)->orderBy('created_at', 'ASC')->paginate(6);
+                    break;
+                case 'pricelow':
+                    $data = Products::where('status', 1)->orderBy('price', 'ASC')->paginate(6);
+                    break;
+                case 'pricehight':
+                    $data = Products::where('status', 1)->orderBy('price', 'DESC')->paginate(6);
+                    break;
+                default:
+                    break;
+            }
+        }
+        return $data;
+    }
     public function getListProducts(){
         $pages = Pages::where('type','product')->first();
         $dataSeo = Pages::where('type', 'project')->first();
         $this->createSeo($dataSeo);
-        $data = Products::where('status', 1)->orderBy('created_at', 'DESC')->paginate(6);
-        $menu_pro = Categories::where(['type'=>'product_category','parent_id'=>0])->get();
+        $data = $this->get_data_product();
+        
+        $menu_pro = Categories::where(['type'=>'product_category'])->get();
         //dd($menu_pro);
         return view('frontend.pages.product_list', compact('dataSeo', 'data','menu_pro','pages'));
     }
@@ -181,11 +213,10 @@ class IndexController extends Controller
     }
 
     public function loadMoreProduct()
-    {
-        
+    {        
         $dataSeo = Pages::where('type', 'project')->first();
         $this->createSeo($dataSeo);
-        $data = Products::where('status', 1)->orderBy('created_at', 'DESC')->paginate(6);
+        $data = $this->get_data_product();
         $view =  View::make('frontend.components.load_project',compact('dataSeo', 'data'));
         $reponse = array('lastpage'=>$data->lastpage(),'respon'=>(string)$view);
         return $reponse;
@@ -222,23 +253,27 @@ class IndexController extends Controller
     {
         $cate = Categories::where('slug',$slug)->first();
         $pages = Pages::where('type','product')->first();
-        $menu_pro = Categories::where(['type'=>'product_category','parent_id'=>0])->get();
+        $menu_pro = Categories::where(['type'=>'product_category'])->get();
         if($cate){
             $cas = Categories::where(['type'=>'product_category','parent_id'=>$cate->id]);
             $cate_id = $cas->pluck('id','name')->toArray();
+            $cate_id_en = $cas->pluck('id','name_en')->toArray();
             
             if($cate_id==null){
                 $cate_id = array($cate->name=>$cate->id);
+                $cate_id_en = array($cate->name_en=>$cate->id);
                 $cate_slug = array($cate->id=>$cate->slug);
                 $array = array($cate->id);
                 $name_array = array($cate->name);
                 $parent_name = '';
+                $parent_name_en = '';
                 $cate_check='1';
             }else{
                 $cate_slug = $cas->pluck('slug','id')->toArray();
                 $array = array_values($cate_id);
                 $name_array = array_keys($cate_id);
                 $parent_name = $cate->name;
+                $parent_name_en = $cate->name_en;
                 $cate_check='0';
             }
             
@@ -249,7 +284,7 @@ class IndexController extends Controller
             ->join('categories','category_product.id_category','=','categories.id')
             ->get()->groupBy('id_category');
             
-            return view('frontend.pages.product_cate_list', compact('product','menu_pro','cate_id','parent_name','cate_slug','pages','cate_check'));
+            return view('frontend.pages.product_cate_list', compact('product','menu_pro','cate_id','cate_id_en','parent_name','parent_name_en','cate_slug','pages','cate_check'));
         }
         else
         $data = Products::where('status', 1)->where('slug', $slug)->firstOrFail();       
@@ -386,7 +421,9 @@ class IndexController extends Controller
         return view('frontend.pages.services', compact('dataSeo'));
     }
 
-
+    public function getServicesDetail(){
+        return 11;
+    }
     public function getAbout()
     {
         $dataSeo = Pages::where('type', 'about')->first();
@@ -419,6 +456,9 @@ class IndexController extends Controller
             return view('frontend.components.load_project', compact('type', 'data'));
         }
         return response()->json(['status' => 0]);
+    }
+    public function testfunction(){
+        return view('frontend.pages.test');
     }
 
 }

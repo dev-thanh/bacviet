@@ -1,4 +1,6 @@
-<?php $curent_page = request()->get('page') ? request()->get('page') : '1'; ?>
+<?php $curent_page = request()->get('page') ? request()->get('page') : '1';
+    $language=request()->session()->get('lang');
+ ?>
 @extends('frontend.master')
 @section('main')
 <section class="banner-top">
@@ -13,7 +15,7 @@
                 <li class="breadcrumb-item">
                     <a href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Dự án</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ __('project') }}</li>
               </ol>
             </nav>
         </div>
@@ -33,8 +35,13 @@
                                 </a>
                             </div>
                             <div class="pj-detail">
+                                @if($language=='vi')
                                 <h4 class="pj-name"><a href="project-detail.php" title="">{{$item->name}}</a></h4>
                                 <p class="pj-des">{!!$item->content!!}</p>
+                                @else
+                                <h4 class="pj-name"><a href="project-detail.php" title="">{{$item->name_en}}</a></h4>
+                                <p class="pj-des">{!!$item->content_en!!}</p>
+                                @endif
                             </div>
                         </div>
                     </div>

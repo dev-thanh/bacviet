@@ -29,6 +29,10 @@
 		                                    <label>Tiêu đề</label>
 		                                    <input type="text" class="form-control" name="name" id="name" value="{!! old('name', @$data->name) !!}" required="">
 		                                </div>
+		                                <div class="form-group">
+		                                    <label>Tiêu đề(tiếng anh)</label>
+		                                    <input type="text" class="form-control" name="name_en" id="name_en" value="{!! old('name_en', @$data->name_en) !!}" required="">
+		                                </div>
 		                                <div class="form-group" id="edit-slug-box">
 		                                    @include('backend.posts.permalink')
 		                                </div>
@@ -39,10 +43,18 @@
 		                                    <label>Mô tả ngắn</label>
 		                                    <textarea class="form-control" rows="5" name="desc">{!! old('desc', @$data->desc) !!}</textarea>
 		                                </div>
+		                                <div class="form-group">
+		                                    <label>Mô tả ngắn(tiếng anh)</label>
+		                                    <textarea class="form-control" rows="5" name="desc_en">{!! old('desc_en', @$data->desc_en) !!}</textarea>
+		                                </div>
 		                                
 		                                <div class="form-group">
 		                                    <label>Nội dung</label>
 		                                    <textarea class="content" name="content">{!! old('content', @$data->content) !!}</textarea>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label>Nội dung(tiếng anh)</label>
+		                                    <textarea class="content" name="content_en">{!! old('content_en', @$data->content_en) !!}</textarea>
 		                                </div>
 		                            </div>
 		                        </div>

@@ -1,3 +1,4 @@
+<?php $language=request()->session()->get('lang'); ?>
 @extends('frontend.master')
 @section('main')
 	<section class="breadcrumbs">
@@ -7,7 +8,7 @@
 			    <li class="breadcrumb-item">
 			    	<a href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
 			    </li>
-			    <li class="breadcrumb-item active" aria-current="page">Tin tức</li>
+			    <li class="breadcrumb-item active" aria-current="page">{{ __('news') }}</li>
 			  </ol>
 			</nav>
 		</div>
@@ -39,8 +40,13 @@
 											<i class="fa fa-calendar" aria-hidden="true"></i>
 											<span>{{$item->created_at}}</span>
 										</p>
+										@if($language=='vi')
 										<h4 class="news-name"><a href="news-detail.php" title="">{{$item->name}}</a></h4>
-										<p class="news-des">{!! $item->content !!}</p>
+										<p class="news-des">{!! $item->desc !!}</p>
+										@else
+										<h4 class="news-name"><a href="news-detail.php" title="">{{$item->name_en}}</a></h4>
+										<p class="news-des">{!! $item->desc_en !!}</p>
+										@endif
 									</div>
 								</div>
 							</div>
@@ -49,14 +55,14 @@
 						</div>
 						@if($data->lastpage() > 1)
 						<div class="view-more">
-							<a href="" class="view-link btn-load-more">Xem thêm</a>
+							<a href="" class="view-link btn-load-more">{{ __('viewmore') }}</a>
 						</div>
 						@endif
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="news-hot sticky-top">
-						<h2 class="news-title">Tin tức mới nhất</h2>
+						<h2 class="news-title">{{ __('latestnews') }}</h2>
 						<div class="blog-trend">
 							@if (!empty($post_news))
 							@foreach ($post_news as $item)
@@ -68,7 +74,11 @@
 										</div>
 									</div>
 									<div class="col-md-6">
+										@if($language=='vi')
 										<h6 class="blogtrend-name"><a href="{{url('/')}}/tin-tuc/{{$item->slug}}">{{$item->name}}</a></h6>
+										@else
+										<h6 class="blogtrend-name"><a href="{{url('/')}}/tin-tuc/{{$item->slug}}">{{$item->name_en}}</a></h6>
+										@endif
 									</div>
 								</div>
 							</div>

@@ -55,6 +55,10 @@
 			                            <input type="text" class="form-control" placeholder="Nhập tiêu đề" name="title" required>
 			                        </fieldset>
 			                        <fieldset class="form-group">
+			                            <label>Tiêu đề tiếng anh</label>
+			                            <input type="text" class="form-control" placeholder="Nhập tiêu đề tiếng anh" name="title_en" required>
+			                        </fieldset>
+			                        <fieldset class="form-group">
 			                            <label>Đường đẫn</label><br>
 			                            <label>Chỉ coppy phần bôi đỏ: <br>
 			                                {{ url('/') }}<span style="color: red; font-weight: bold;">/gioi-thieu</span>
@@ -91,10 +95,15 @@
 			                <form action="{{ route('setting.menu.editItem' ) }}" method="POST" class="frm_add">
 			                    <div class="modal-body">
 			                        <input type="hidden" name="_token" value="{!! csrf_token() !!}">
+		                            <input type="hidden" value="" id="id_menu" name="id">
 			                        <fieldset class="form-group">
 			                            <label>Tiêu đề</label>
 			                            <input type="text" class="form-control" id="editTitle" name="title" required >
-			                            <input type="hidden" value="" id="id_menu" name="id">
+			                        </fieldset>
+			                        <fieldset class="form-group">
+			                            <label>Tiêu đề tiếng anh</label>
+			                            <input type="text" class="form-control" id="editTitle_en" name="title_en" required >
+			
 			                        </fieldset>
 			                        <fieldset class="form-group">
 			                            <label>Đường đẫn</label>
@@ -156,12 +165,14 @@
         });
         $('.modalEditMenu').click(function(event) {
             var id = $(this).attr("data-id");
+            console.log(id);
             $.get('{{ asset('/backend/menu/edit-item/') }}/'+id, function(data) {
                 if(data.status == "success"){
                     $('#editTitle').val(data.data.title);
+                    $('#editTitle_en').val(data.data.title_en);
                     $('#editUrl').val(data.data.url);
                     $('#id_menu').val(id);
-                    $('#editMenu').modal('show')
+                    $('#editMenu').modal('show');
                 }
             });
         });

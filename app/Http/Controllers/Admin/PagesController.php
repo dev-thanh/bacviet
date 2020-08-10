@@ -42,6 +42,7 @@ class PagesController extends Controller
        	$type = $request->type;
     	$data = Pages::where('type', $type)->firstOrFail();
     	$data->content = !empty($request->content) ? json_encode($request->content) : null;
+        $data->meta_title = $request->meta_title;
     	$data->meta_title = $request->meta_title;
     	$data->meta_description = $request->meta_description;
     	$data->meta_keyword = $request->meta_keyword;

@@ -22,8 +22,20 @@
 			<input type="text" name="content[services][{{ $key }}][title]" class="form-control" value="{{ @$value->title }}">
 		</div>
 		<div class="form-group">
+			<label for="">Tiêu đề(tiếng anh)</label>
+			<input type="text" name="content[services][{{ $key }}][title_en]" class="form-control" value="{{ @$value->title_en }}">
+		</div>
+		<div class="form-group">
+			<label for="">Đường dẫn tĩnh</label>
+			<input type="text" name="content[services][{{ $key }}][slug]" class="form-control" value="{{ @$value->slug }}" required="">
+		</div>
+		<div class="form-group">
 			<label for="">Mô tả</label>
 			<textarea id="content{{ $key }}" name="content[services][{{ $key }}][content]">{!! @$value->content !!}</textarea>
+		</div>
+		<div class="form-group">
+			<label for="">Mô tả(tiếng anh)</label>
+			<textarea id="content_en{{ $key }}" name="content[services][{{ $key }}][content_en]">{!! @$value->content_en !!}</textarea>
 		</div>
 		<div class="form-group">
 			<label for="">Liên kết</label>
@@ -39,4 +51,5 @@
 
 <script>
 	CKEDITOR.replace( 'content{{ $key }}' );
+	CKEDITOR.replace( 'content_en{{ $key }}' );
 </script>

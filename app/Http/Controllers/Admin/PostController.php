@@ -93,11 +93,13 @@ class PostController extends Controller
         );
         $data = [
             'name'             => $request->name,
+            'name_en'             => $request->name_en,
             'slug'             => $this->createSlug(str_slug($request->name)),
             'desc'             => $request->desc,
+            'desc_en'             => $request->desc_en,
             'image'            => $request->image,
             'type'             => $request->type,
-            'content'          => $request->content,
+            'content_en'          => $request->content_en,
             'status'           => $request->status == 1 ? 1 : null,
             'hot'              => $request->hot == 1 ? 1 : null,
             'meta_title'       => $request->meta_title,
@@ -155,10 +157,13 @@ class PostController extends Controller
 
         $data = [
             'name'            => $request->name,
+            'name_en'            => $request->name_en,
             /*'slug'             => $this->createSlug(str_slug($request->name), $id),*/
             'desc'             => $request->desc,
+            'desc_en'             => $request->desc_en,
             'image'            => $request->image,
             'content'          => $request->content,
+            'content_en'          => $request->content_en,
             'status'           => $request->status == 1 ? 1 : null,
             'hot'              => $request->hot == 1 ? 1 : null,
             'meta_title'       => $request->meta_title,

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Categories extends Model
 {
     protected $table = 'categories';
-    protected $fillable = [ 'name','slug','parent_id','image', 'meta_title', 'meta_description', 'meta_keyword', 'status', 'teamplate', 'type', 'is_display_home', 'banner'];
+    protected $fillable = [ 'name','name_en','slug','parent_id','image', 'meta_title', 'meta_description', 'meta_keyword', 'status', 'teamplate', 'type', 'is_display_home', 'banner'];
 
 
     public function get_child_cate()

@@ -1760,3 +1760,6 @@
 .map.active {
     display: block;
 }
+#get_order_product{
+    padding: 5px
+}

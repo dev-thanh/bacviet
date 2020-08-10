@@ -20,6 +20,7 @@ class ProductsController extends Controller
     {
         return [
             'name' => 'required',
+            'name_en' => 'required',
             'image' => 'required',
             'category' => 'required',
         ];
@@ -30,6 +31,7 @@ class ProductsController extends Controller
     {
         return [
             'name.required' => 'Tên sản phẩm không được bỏ trống.',
+            'name_en.required' => 'Tên sản phẩm(tiếng anh) không được bỏ trống.',
             'image.required' => 'Bạn chưa chọn hình ảnh cho sản phẩm.',
             'category.required' => 'Bạn chưa chọn danh mục sản phẩm.'
         ];

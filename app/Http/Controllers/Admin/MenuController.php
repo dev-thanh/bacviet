@@ -25,6 +25,7 @@ class MenuController extends Controller
     {
         $menu           = new Menu;
         $menu->title    = $request->title;
+        $menu->title_en = $request->title_en;
         $menu->url      = $request->url;
         $menu->position = 0;
         $menu->id_group = $id;
@@ -72,8 +73,9 @@ class MenuController extends Controller
 
     public function postEditItem(Request $request)
     {
-        $menu        = Menu::find($request->id);
+        $menu  = Menu::find($request->id);
         $menu->title = $request->title;
+        $menu->title_en = $request->title_en;
         $menu->url   = $request->url;
         $menu->save();
         flash('Cập nhập thành công.')->success();
