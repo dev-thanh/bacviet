@@ -292,20 +292,6 @@ function getOptions($key = null, $field = null)
         return substr(str_shuffle(str_repeat($x='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(10/strlen($x)) )),1, 10);
     }
 
-
-    function data_free($data, $parent_id=null,$level = 0){
-        $result = [];
-        foreach ($data as $item) {
-            if($item['parent_id'] == $parent_id){
-                $item['level']=$level;
-                $result[] = $item;
-                unset($data[$item['id']]);
-                $child = data_free($data,$item['id'],$level+1);
-                $result = array_merge($result, $child);
-            }
-        }
-        return $result;
-    }
     function showCategories($categories, $parent_id = 0, $char = '',$language,$array_parent)
     {
         if($language=='vi'){

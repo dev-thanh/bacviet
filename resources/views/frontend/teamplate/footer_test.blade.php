@@ -88,6 +88,36 @@
         </div>
     </section>
 </footer>
+<section class="popups popups-order">
+    <div class="popup-box">
+        <div class="content">
+            <div class="popup-title">
+                <h3>Nhập thông tin của bạn</h3>
+            </div>
+            <form class="popup-form">                   
+                <div class="form-group">
+                    <i class="fa fa-user icon name-icon" aria-hidden="true"></i>
+                    <input class="name-input form-control" type="text" name="name" value="" placeholder="Họ tên">
+                </div>                  
+                <div class="form-group">
+                    <i class="fa fa-phone icon phone-icon" aria-hidden="true"></i>
+                    <input class="phone-input form-control" type="text" name="phone" value="" placeholder="Số điện thoại">
+                </div>                  
+                <div class="form-group">
+                    <i class="fa fa-envelope icon email-icon" aria-hidden="true"></i>
+                    <input class="email-input form-control" type="text" name="email" value="" placeholder="Email">
+                </div>                  
+                <div class="form-group">
+                    <i class="fa fa-pencil icon content-icon" aria-hidden="true"></i>
+                    <textarea class="content-input form-control" type="text" name="content" rows="3" value="" placeholder="Nội dung"></textarea>
+                </div>
+                <button type="submit" name="submit-send" class="btn send-btn">
+                    <span class="text">Gửi</span>
+                </button>
+            </form>
+        </div>
+    </div>    
+</section>
 <a id="back-to-top" class=""><i class="fa fa-chevron-up"></i> </a>
 <div id="callnow" class="">
     <div class="hotline-phone-ring-wrap">

@@ -166,35 +166,42 @@ class IndexController extends Controller
         return view('frontend.pages.project_list', compact('dataSeo', 'data'));
     }
 
-    public function get_data_product(){
+    public function get_data_product($request){
         $data_url = request()->order ? request()->order : '' ;
-        if($data_url ==''){
-            $data = Products::where('status', 1)->orderBy('created_at', 'DESC')->paginate(6);
-        }else{
-            switch ($data_url) {
+        $search_text = request()->search ? request()->order : '' ;
+        if($request->has('order')){               
+            switch ($request->order) {
                 case 'newest':
-                    $data = Products::where('status', 1)->orderBy('created_at', 'DESC')->paginate(6);
+                    $order = ['field'=>'created_at','order'=>'DESC'];
                     break;
                 case 'oldest':
-                    $data = Products::where('status', 1)->orderBy('created_at', 'ASC')->paginate(6);
+                    $order = ['field'=>'created_at','order'=>'ASC'];
                     break;
                 case 'pricelow':
-                    $data = Products::where('status', 1)->orderBy('price', 'ASC')->paginate(6);
+                    $order = ['field'=>'price','order'=>'ASC'];
+                    
                     break;
                 case 'pricehight':
-                    $data = Products::where('status', 1)->orderBy('price', 'DESC')->paginate(6);
+                    $order = ['field'=>'price','order'=>'DESC'];
                     break;
                 default:
                     break;
             }
+        }else{
+            $order = ['field'=>'created_at','order'=>'DESC'];
         }
+        $data = Products::where('status',1)->where(function ($q) use($request) {
+            if ($request->has('search')) {
+                $q->where('name', 'LIKE', '%' . $request->search . '%');
+            }
+        })->orderBy($order['field'], $order['order'])->paginate(6);
         return $data;
     }
-    public function getListProducts(){
+    public function getListProducts(Request $request){
         $pages = Pages::where('type','product')->first();
         $dataSeo = Pages::where('type', 'project')->first();
         $this->createSeo($dataSeo);
-        $data = $this->get_data_product();
+        $data = $this->get_data_product($request);
         
         $menu_pro = Categories::where(['type'=>'product_category'])->get();
         //dd($menu_pro);
@@ -212,12 +219,12 @@ class IndexController extends Controller
         return $reponse;
     }
 
-    public function loadMoreProduct()
+    public function loadMoreProduct(Request $request)
     {        
         $dataSeo = Pages::where('type', 'project')->first();
         $this->createSeo($dataSeo);
-        $data = $this->get_data_product();
-        $view =  View::make('frontend.components.load_project',compact('dataSeo', 'data'));
+        $data = $this->get_data_product($request);
+        $view =  View::make('frontend.components.load_product',compact('dataSeo', 'data'));
         $reponse = array('lastpage'=>$data->lastpage(),'respon'=>(string)$view);
         return $reponse;
     }
@@ -457,8 +464,39 @@ class IndexController extends Controller
         }
         return response()->json(['status' => 0]);
     }
-    public function testfunction(){
-        return view('frontend.pages.test');
+
+    protected function fullTextWildcards($term)
+    {
+        // removing symbols used by MySQL
+        $reservedSymbols = ['-', '+', '<', '>', '@', '(', ')', '~'];
+        $term = str_replace($reservedSymbols, '', $term);
+ 
+        $words = explode(' ', $term);
+ 
+        foreach ($words as $key => $word) {
+            /*
+             * applying + operator (required word) only big words
+             * because smaller ones are not indexed by mysql
+             */
+            if (strlen($word) >= 1) {
+                $words[$key] = '+' . $word  . '*';
+            }
+        }
+        
+        $searchTerm = implode(' ', $words);
+ 
+        return $searchTerm;
+    }
+
+    public function searchfunction(Request $request){
+        $data_url = request()->order ? request()->order : '' ;
+        $search_text = request()->search ? request()->order : '' ;
+        $data = $this->get_data_product($request);
+        $pages = Pages::where('type','product')->first();
+        $dataSeo = Pages::where('type', 'project')->first();
+        $this->createSeo($dataSeo);
+        $menu_pro = Categories::where(['type'=>'product_category'])->get();
+        return view('frontend.pages.product_list', compact('dataSeo', 'data','menu_pro','pages'));
     }
 
 }

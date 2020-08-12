@@ -65,7 +65,7 @@
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="{{ url('/') }}" class="logo" target="_blank">
+            <a href="{{ url('/') }}/trang-chu" class="logo" target="_blank">
                 <b>Xem Website</b>
             </a>
 

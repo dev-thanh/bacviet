@@ -12,6 +12,20 @@
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+        <!--link css-->
+     
+        <link rel="stylesheet" type="text/css" title="" href="{{ __BASE_URL__ }}/css/bootstrap.min.css">
+
+        <link rel="stylesheet" type="text/css" title="" href="{{ __BASE_URL__ }}/css/slick.min.css">
+
+        <link rel="stylesheet" type="text/css" title="" href="{{ __BASE_URL__ }}/css/slick-theme.min.css">
+
+        <link rel="stylesheet" type="text/css" title="" href="{{ __BASE_URL__ }}/css/styles.css">
+
+        <link rel="stylesheet" type="text/css" title="" href="{{ __BASE_URL__ }}/css/responsive.css">
+
+        <script type="text/javascript" src="{{ __BASE_URL__ }}/js/jquery.min.js"></script> 
+
         <!-- Styles -->
         <style>
             html, body {
@@ -51,14 +65,6 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            <div class="code">
-                @yield('code')
-            </div>
-
-            <div class="message" style="padding: 10px;">
-                @yield('message')
-            </div>
-        </div>
+        
     </body>
 </html>

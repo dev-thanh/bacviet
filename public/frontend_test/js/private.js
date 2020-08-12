@@ -233,4 +233,22 @@ $(document).ready(function() {
         $('#store-map-2').removeClass('active');
         $('#store-map-1').addClass('active')
     })
+    $('.popups').click(function(event){
+        $('.popups').removeClass('active');
+    });
+    $('.popup-box .content').click(function(e){
+        e.stopPropagation();
+    });
+
+    $('.product-option .action').click(function(event){
+        event.preventDefault();
+        var hw = $(window).height();
+        var hwpu = $('.popup-box').height();
+
+        if(hwpu > hw) {
+            $('.popups').css({'overflow-y':'auto', 'align-items':'flex-start', 'padding-top':'5px'});
+        }
+
+        $('.popups-order').addClass('active');
+    });
 })

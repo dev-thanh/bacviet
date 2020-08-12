@@ -21,7 +21,7 @@
                                 @if (\Request::route()->getName() == 'home.product')
                                     <h1>{{ __('products') }}</h1>
                                 @else
-                                    <h2>{{ $info->name }}</h2>
+                                    <h2>Kết quả tìm kiếm</h2>
                                 @endif
                                 <div class="sort flex-center-end">
                                     <span>{{ __('productsorder') }}:</span>
@@ -87,21 +87,25 @@
             $('.btn-load-more').click(function(event) {
                 event.preventDefault();
                 page+=1;
-                // btn = $(this);
+                var value = $('#get_order_product').val();
+                var value_search = $('#search_form').val();
+                @if (\Request::route()->getName() == 'search')
+                    if(value_search!=''){
+                        var text = '&search='+value_search;
+                    }else{
+                        var text='';
+                    }
+                    var url = '{{url('/')}}/load-more-product?order='+value+text;
+                @else
+                    var url = '{{url('/')}}/load-more-product?order='+value;
+                @endif
                 $('.loadingcover').show();
                 $.ajax({
-                    url: '{{url('/')}}/load-more-product?order={{$data_url}}&page='+page,
+                    url: url+'&page='+page,
                     type: 'GET',
-                    // data: {
-                    //     type: 'project',
-                    //     limit : limit,
-                    //     @if (!empty($info))
-                    //         id_cat : '{{ $info->id }}',
-                    //     @endif
-                    // },
                 })
                 .done(function(data) {
-                    console.log(data);
+
                     if(page==data.lastpage){
                         $('.btn-load-more').remove();
                     }
@@ -118,8 +122,19 @@
         $('.project_menu').addClass('active');
         $('#get_order_product').on('change', function() {
             var value = $(this).val();
-            // console.log(value);
-            window.location.href = '{{url('/')}}/san-pham?order='+value;
+            var value_search = $('#search_form').val();
+            @if (\Request::route()->getName() == 'search')
+                if(value_search!=''){
+                    var text = '&search='+value_search;
+                }else{
+                    var text='';
+                }
+                var url = '{{url('/')}}/search?order='+value+text;
+            @else
+            var url = '{{url('/')}}/san-pham?order='+value;
+            @endif
+            var url = 
+            window.location.href = url;
         });
     </script>
     @endsection

@@ -1,4 +1,6 @@
-<?php $language=request()->session()->get('lang');?>
+<?php $language=request()->session()->get('lang');
+    $search = request()->search ? request()->search : '' ;
+?>
 <header>
     <section class="header-top">
         <div class="container">
@@ -46,14 +48,14 @@
                         ?>
                     </div>
                 </div>
-               <!--  <div class="col-md-2 search-mb">
-                    <div class="search flex-center-center height-100">
-                        <form class="flex-center-center">
-                            <input type="text" placeholder="Tìm kiếm ...">
+                <div class="col-md-2 search-mb">
+                    <div class="search flex-center-center height-100" >
+                        <form class="flex-center-center" method="GET" action="{{url('/')}}/search">
+                            <input type="text" name="search" value="{{$search}}" id="search_form" placeholder="Tìm kiếm ...">
                             <button type="submit"><i  class="fa fa-search"></i></button>
                         </form>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </section>

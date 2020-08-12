@@ -44,7 +44,7 @@ Route::get('/load-more-product', 'IndexController@loadMoreProduct')->name('load-
 
 Route::get('/load-more-post', 'IndexController@loadMorePost')->name('load-more-post');
 
-Route::get('/test', 'IndexController@testfunction')->name('load-more-post');
+Route::get('/search', 'IndexController@searchfunction')->name('search');
 
 Route::group(['middleware' => 'locale'], function() {
     Route::get('change-language/{language}', 'IndexController@changeLanguage')->name('user.change-language');

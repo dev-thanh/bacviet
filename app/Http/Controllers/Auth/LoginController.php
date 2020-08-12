@@ -52,4 +52,9 @@ class LoginController extends Controller
             ['status' => 1]
         );
     }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
+    }
 }
